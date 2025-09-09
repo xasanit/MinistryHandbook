@@ -19,4 +19,7 @@ object AppIcons {
 
     @Composable
     fun searchIcon() = painterResource(R.drawable.search)
+
+    @Composable
+    fun backIcon() = painterResource(R.drawable.back_fill)
 }

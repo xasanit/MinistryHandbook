@@ -8,8 +8,12 @@ import com.example.ministryoffinance.data.repository.categoryRepository.Category
 import com.example.ministryoffinance.data.repository.categoryRepository.CategoryRepositoryImpl
 import com.example.ministryoffinance.data.repository.employeeRepository.EmployeeRepository
 import com.example.ministryoffinance.data.repository.employeeRepository.EmployeeRepositoryImpl
-import com.example.ministryoffinance.domain.usecase.GetCategoriesUseCase
-import com.example.ministryoffinance.domain.usecase.GetEmployeesUseCase
+import com.example.ministryoffinance.domain.usecase.categoryUseCase.CategoriesUseCaseImpl
+import com.example.ministryoffinance.domain.usecase.categoryUseCase.CategoryUseCase
+import com.example.ministryoffinance.domain.usecase.employeeUseCase.implementations.GetEmployeeByIdUseCaseImpl
+import com.example.ministryoffinance.domain.usecase.employeeUseCase.interfaces.GetEmployeesUseCase
+import com.example.ministryoffinance.domain.usecase.employeeUseCase.implementations.GetEmployeesUseCaseImpl
+import com.example.ministryoffinance.domain.usecase.employeeUseCase.interfaces.GetEmployeeByIdUseCase
 import com.example.ministryoffinance.ui.viewmodel.CategoryViewModel
 import com.example.ministryoffinance.ui.viewmodel.EmployeeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -24,10 +28,18 @@ val appModule = module {
     single<EmployeeRepository> { EmployeeRepositoryImpl(get()) }
     single<CategoryRepository> { CategoryRepositoryImpl(get()) }
 
-    single { GetEmployeesUseCase(get()) }
-    single { GetCategoriesUseCase(get()) }
+    single<GetEmployeesUseCase> { GetEmployeesUseCaseImpl(get()) }
+    single<GetEmployeeByIdUseCase> { GetEmployeeByIdUseCaseImpl(get()) }
 
-    viewModel { EmployeeViewModel(get()) }
+    single<CategoryUseCase> { CategoriesUseCaseImpl(get()) }
+
+
+
+
+    viewModel { EmployeeViewModel(
+        employeeUseCase = get(),
+        getEmployeeByIdUseCase = get()
+    ) }
     viewModel { CategoryViewModel(get()) }
 
 }

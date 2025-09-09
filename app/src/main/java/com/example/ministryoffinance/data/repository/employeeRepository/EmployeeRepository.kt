@@ -1,6 +1,5 @@
 package com.example.ministryoffinance.data.repository.employeeRepository
 
-import android.graphics.Bitmap
 import com.example.ministryoffinance.domain.model.Employee
 
 interface EmployeeRepository {
@@ -14,6 +13,6 @@ interface EmployeeRepository {
 
     suspend fun getEmployee(id: Int): Employee
 
-    suspend fun getPicture(id: String): Bitmap
+    suspend fun getPicture(id: String): ByteArray
 
 }

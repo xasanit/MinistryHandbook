@@ -51,3 +51,14 @@ val erkinbek = Employee(
 )
 
 val mockEmployeeList = listOf(aliaqbar, sagynbek, taxirjan, erkinbek)
+
+fun sortByCategory(employeeList: List<Employee>, categoryId: Int?): List<Employee> {
+    val result = mutableListOf<Employee>()
+
+    for (employee in employeeList) {
+        if (employee.categoryId == categoryId) {
+            result.add(employee)
+        }
+    }
+    return result
+}

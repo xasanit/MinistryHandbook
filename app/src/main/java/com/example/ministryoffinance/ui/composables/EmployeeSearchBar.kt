@@ -1,6 +1,7 @@
-package com.example.ministryoffinance.ui.composables.employee
+package com.example.ministryoffinance.ui.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -22,10 +22,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
+import androidx.compose.ui.text.font.FontWeight.Companion.Medium
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ministryoffinance.ui.theme.MinistryOfFinanceTheme
-import com.example.ministryoffinance.ui.theme.Roboto
+import com.example.ministryoffinance.ui.theme.OnPrimary
+import com.example.ministryoffinance.ui.theme.OnSecondary
+import com.example.ministryoffinance.ui.theme.Primary
+import com.example.ministryoffinance.ui.theme.Shapes
 
 @Composable
 fun EmployeeSearchBar(
@@ -39,8 +44,8 @@ fun EmployeeSearchBar(
             .wrapContentHeight()
             .fillMaxWidth()
             .padding(8.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .background(color = Color.White)
+            .background(color = OnPrimary)
+            .border(width = 2.dp, color = Primary, shape = Shapes.large)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -63,8 +68,7 @@ fun EmployeeSearchBar(
                 onValueChange = onQueryChange,
                 singleLine = true,
                 textStyle = LocalTextStyle.current.copy(
-                    color = Color.Black,
-                    fontFamily = Roboto
+                    color = OnSecondary,
                 ),
                 modifier = Modifier
                     .weight(5F)
@@ -73,8 +77,8 @@ fun EmployeeSearchBar(
                     if (query.isEmpty()) {
                         Text(
                             text = placeholder,
+                            fontWeight = Medium,
                             color = Color.Gray,
-                            fontFamily = Roboto
                         )
                     }
                     innerTextField()

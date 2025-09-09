@@ -1,6 +1,7 @@
 package com.example.ministryoffinance.ui.composables.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,7 +25,8 @@ import com.example.ministryoffinance.ui.theme.MinistryOfFinanceTheme
 fun TitleRow() {
     Row (
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center
     ) {
         Image(
             painter = painterResource(R.drawable.gerb),

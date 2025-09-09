@@ -1,7 +1,8 @@
-package com.example.ministryoffinance.ui.composables.employee
+package com.example.ministryoffinance.ui.composables.card
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,54 +37,66 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ministryoffinance.R
 import com.example.ministryoffinance.domain.model.Employee
+import com.example.ministryoffinance.ui.theme.Background
+import com.example.ministryoffinance.ui.theme.OnPrimary
+import com.example.ministryoffinance.ui.theme.Primary
+import com.example.ministryoffinance.ui.theme.Secondary
+import com.example.ministryoffinance.ui.theme.Shapes
+import com.example.ministryoffinance.ui.theme.Surface
 
 @Composable
 fun EmployeeCard(
     employee: Employee,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Card(
-        modifier = Modifier
-            .clickable {
-                onClick()
-            }
-            .wrapContentHeight()
-            .padding(vertical = 20.dp),
-        shape = RoundedCornerShape(15.dp),
-        elevation = CardDefaults.cardElevation(4.dp),
+    Box(
+        modifier = modifier
     ) {
-        Box(
+        Card(
             modifier = Modifier
-                .wrapContentHeight()
-                .background(color = Color.White)
-        ) {
-            Row(
-                modifier = Modifier
-                    .height(intrinsicSize = IntrinsicSize.Min)
-                    .padding(10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
-                    modifier = Modifier
-                        .weight(0.4F)
-                        .fillMaxHeight()
-                ) {
-                    EmployeePhoto()
+                .clickable {
+                    onClick()
                 }
-                Spacer(Modifier.width(20.dp))
-                Column(
+                .wrapContentHeight()
+                .padding(vertical = 20.dp),
+            shape = RoundedCornerShape(15.dp),
+            elevation = CardDefaults.cardElevation(4.dp),
+        ) {
+            Box(
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .background(color = OnPrimary)
+                    .border(width = 2.dp, color = Primary, shape = Shapes.medium)
+            ) {
+                Row(
                     modifier = Modifier
-                        .weight(0.6F)
-                        .wrapContentHeight()
+                        .height(intrinsicSize = IntrinsicSize.Min)
+                        .padding(10.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    EmployeeInfo(
-                        fullName = employee.fullName,
-                        position = employee.position,
-                        landlineNumber = employee.landlineNumber,
-                        extensionNumber = employee.extensionNumber,
-                        email = employee.email,
-                        room = employee.room,
-                    )
+                    Box(
+                        modifier = Modifier
+                            .weight(0.4F)
+                            .fillMaxHeight()
+                    ) {
+                        EmployeePhoto()
+                    }
+                    Spacer(Modifier.width(20.dp))
+                    Column(
+                        modifier = Modifier
+                            .weight(0.6F)
+                            .wrapContentHeight()
+                    ) {
+                        EmployeeInfo(
+                            fullName = employee.fullName,
+                            position = employee.position,
+                            landlineNumber = employee.landlineNumber,
+                            extensionNumber = employee.extensionNumber,
+                            email = employee.email,
+                            room = employee.room,
+                        )
+                    }
                 }
             }
         }
@@ -101,7 +114,8 @@ fun EmployeePhoto(
         modifier = Modifier
             .fillMaxHeight()
             .aspectRatio(0.6f)
-            .clip(RoundedCornerShape(15.dp))
+            .border(width = 2.dp, color = Secondary, shape = Shapes.medium)
+            .clip(shape = Shapes.medium)
     )
 }
 
@@ -128,7 +142,7 @@ fun EmployeeInfo(
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Center,
-                color = Color.Black,
+                color = Primary,
                 fontWeight = Bold,
             )
         }
@@ -136,7 +150,7 @@ fun EmployeeInfo(
         Text(
             text = position,
             fontSize = 16.sp,
-            color = Color.Blue,
+            color = Primary,
             fontWeight = Bold,
         )
         Spacer(Modifier.height(5.dp))
@@ -163,6 +177,6 @@ private fun CardPreview() {
         categoryId = 5,
         image = "fff",
     )
-    EmployeeCard(mockData) {}
+    EmployeeCard(employee = mockData, onClick = {})
 }
 

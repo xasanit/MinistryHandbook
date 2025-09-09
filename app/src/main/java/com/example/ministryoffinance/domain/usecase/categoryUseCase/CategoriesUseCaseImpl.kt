@@ -1,12 +1,12 @@
-package com.example.ministryoffinance.domain.usecase
+package com.example.ministryoffinance.domain.usecase.categoryUseCase
 
 import com.example.ministryoffinance.data.repository.categoryRepository.CategoryRepository
 import com.example.ministryoffinance.domain.model.Category
 
-class GetCategoriesUseCase(
+class CategoriesUseCaseImpl(
     val repository: CategoryRepository
-) {
-    suspend operator fun invoke(): List<Category> {
+) : CategoryUseCase {
+    override suspend fun getCategoriesUseCase(): List<Category> {
         return repository.getCategories()
     }
 }

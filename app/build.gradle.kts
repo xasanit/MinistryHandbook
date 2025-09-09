@@ -43,6 +43,8 @@ android {
 
 dependencies {
 
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.9.0")
+
     implementation("io.ktor:ktor-client-core:3.2.3")
     implementation("io.ktor:ktor-client-okhttp:3.2.3")
     implementation("io.ktor:ktor-client-content-negotiation:3.2.3")

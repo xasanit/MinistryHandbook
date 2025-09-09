@@ -21,5 +21,5 @@ val category7 = Category(
     ruName = "Отдел бухгалтерии"
 )
 
-val mockCategoryList = listOf(category5, category6)
+val mockCategoryList = listOf(category5, category6, category7)
 

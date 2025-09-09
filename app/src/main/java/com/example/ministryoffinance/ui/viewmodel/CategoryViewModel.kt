@@ -8,11 +8,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ministryoffinance.domain.model.Category
-import com.example.ministryoffinance.domain.usecase.GetCategoriesUseCase
+import com.example.ministryoffinance.domain.usecase.categoryUseCase.CategoryUseCase
 import kotlinx.coroutines.launch
 
 class CategoryViewModel (
-    val getCategoriesUseCase: GetCategoriesUseCase,
+    val categoryUseCase: CategoryUseCase,
 ): ViewModel() {
 
     private val categoriesCache = mutableListOf<Category>()     //объявляется в качестве обычного изменяемого списка
@@ -38,7 +38,7 @@ class CategoryViewModel (
 
             try {
 
-                val result = getCategoriesUseCase()
+                val result = categoryUseCase.getCategoriesUseCase()
 
                 categoriesCache.clear()
                 categoriesCache.addAll(result)

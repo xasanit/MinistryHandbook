@@ -1,6 +1,5 @@
 package com.example.ministryoffinance.data.api.employeeApi
 
-import android.graphics.Bitmap
 import com.example.ministryoffinance.data.dto.EmployeeDto
 import com.example.ministryoffinance.data.dto.EmployeeListResponse
 import io.ktor.client.HttpClient
@@ -35,7 +34,7 @@ class EmployeeApiImpl (
 
     override suspend fun getPicture(
         id: String
-    ): Bitmap {
+    ): ByteArray {
         return client.get("$baseUrl/employee/picture/$id").body()
     }
 }

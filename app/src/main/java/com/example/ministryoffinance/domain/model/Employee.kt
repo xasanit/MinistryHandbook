@@ -1,7 +1,7 @@
 package com.example.ministryoffinance.domain.model
 
 data class Employee (
-    val id: Int?,
+    val id: Int,
     val fullName: String,
     val position: String,
     val landlineNumber: String,

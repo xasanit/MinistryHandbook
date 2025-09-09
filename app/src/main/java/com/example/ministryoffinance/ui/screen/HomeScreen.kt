@@ -1,4 +1,4 @@
-package com.example.ministryoffinance.ui.composables.screen
+package com.example.ministryoffinance.ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,9 +14,23 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight.Companion.Medium
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.ministryoffinance.ui.composables.employee.CardScrollView
-import com.example.ministryoffinance.ui.composables.employee.EmployeeSearchBar
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.ministryoffinance.domain.usecase.categoryUseCase.CategoriesUseCaseImpl
+import com.example.ministryoffinance.domain.usecase.employeeUseCase.implementations.GetEmployeeByIdUseCaseImpl
+import com.example.ministryoffinance.domain.usecase.employeeUseCase.implementations.GetEmployeesUseCaseImpl
+import com.example.ministryoffinance.ui.composables.EmployeeSearchBar
+import com.example.ministryoffinance.ui.composables.card.CardScrollView
+import com.example.ministryoffinance.ui.composables.screen.TitleRow
+import com.example.ministryoffinance.ui.composables.topBar.TopBar
+import com.example.ministryoffinance.ui.navigation.NavigationMenu
+import com.example.ministryoffinance.ui.navigation.Screen
+import com.example.ministryoffinance.ui.values.mock.fakeRepository.FakeCategoryRepositoryImpl
+import com.example.ministryoffinance.ui.values.mock.fakeRepository.FakeEmployeeRepositoryImpl
 import com.example.ministryoffinance.ui.viewmodel.CategoryViewModel
 import com.example.ministryoffinance.ui.viewmodel.EmployeeViewModel
 import kotlinx.coroutines.launch
@@ -24,11 +38,11 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
+    navController: NavController,
     modifier: Modifier = Modifier,
     employeeViewModel: EmployeeViewModel = koinViewModel(),
     categoryViewModel: CategoryViewModel = koinViewModel(),
-    onCardClick: (Int) -> Unit,
-    ) {
+) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -78,16 +92,49 @@ fun HomeScreen(
                 // Название выбранной категории
                 Text(
                     text = selectedCategory?.ruName ?: "Категория не выбрана",
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    fontWeight = Medium,
+                    fontSize = 22.sp,
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 CardScrollView(
                     employeeList = employeeViewModel.employees,
-                    isLoading = employeeViewModel.isLoading
+                    isLoading = employeeViewModel.isLoading,
+                    onEmployeeClick = { employeeId ->
+                        navController.navigate(Screen.DetailsScreen.createRoute(employeeId))
+                    }
                 )
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewHomeScreen() {
+
+    val navController = rememberNavController()
+
+    val categoryRepo = FakeCategoryRepositoryImpl()
+
+    val categoryUseCase = CategoriesUseCaseImpl(categoryRepo)
+
+    val categoryVM = CategoryViewModel(categoryUseCase)
+
+    val employeeRepo = FakeEmployeeRepositoryImpl()
+
+    val employeeUseCase = GetEmployeesUseCaseImpl(employeeRepo)
+
+    val employeeByIdUseCase = GetEmployeeByIdUseCaseImpl(employeeRepo)
+
+    val employeeVM = EmployeeViewModel(employeeUseCase, employeeByIdUseCase)
+
+    HomeScreen(
+        navController = navController,
+        modifier = Modifier,
+        employeeViewModel = employeeVM,
+        categoryViewModel = categoryVM,
+    )
 }
