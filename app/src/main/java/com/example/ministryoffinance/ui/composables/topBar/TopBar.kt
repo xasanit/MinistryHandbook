@@ -1,74 +1,62 @@
 package com.example.ministryoffinance.ui.composables.topBar
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.ministryoffinance.ui.composables.screen.TitleRow
+import androidx.navigation.compose.rememberNavController
 import com.example.ministryoffinance.ui.theme.OnPrimary
 import com.example.ministryoffinance.ui.theme.Primary
-import com.example.ministryoffinance.ui.theme.Secondary
-import com.example.ministryoffinance.ui.values.variables.AppIcons
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
-@SuppressLint("CoroutineCreationDuringComposition")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
-    title: @Composable () -> Unit,
-    scope: CoroutineScope,
-    drawerState: DrawerState,
+    icon: @Composable () -> Unit,
 ) {
-    CenterAlignedTopAppBar(
-        navigationIcon = {
-            Icon(
-                painter = AppIcons.menuIcon(),
-                contentDescription = "Menu",
-                modifier = Modifier
-                    .padding(horizontal = 10.dp)
-                    .size(25.dp)
-                    .clickable {
-                        scope.launch { drawerState.open() }
-                    }
-            )
-        },
-        title = title,
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Primary,
-            titleContentColor = OnPrimary,
-            navigationIconContentColor = OnPrimary
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-    )
+    CompositionLocalProvider(LocalContentColor provides OnPrimary) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = Primary)
+                .padding(vertical = 10.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            icon()
+            TitleRow()
+        }
+    }
 }
+
 
 @Preview
 @Composable
-fun TopBarPReview() {
+fun TopBarPreview() {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
     TopBar(
-        title = { TitleRow() },
-        scope = scope,
-        drawerState = drawerState
+        icon = { MenuIcon(scope = scope, drawerState = drawerState) },
     )
+}
+
+@Preview
+@Composable
+fun BaseTopBarPreview() {
+    val navController = rememberNavController()
+    TopBar(
+        icon = { BackIcon(navController = navController) },
+    )
+
 }

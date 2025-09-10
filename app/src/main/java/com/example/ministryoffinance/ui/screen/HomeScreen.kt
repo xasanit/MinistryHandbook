@@ -15,6 +15,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight.Companion.Medium
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,7 +26,8 @@ import com.example.ministryoffinance.domain.usecase.employeeUseCase.implementati
 import com.example.ministryoffinance.domain.usecase.employeeUseCase.implementations.GetEmployeesUseCaseImpl
 import com.example.ministryoffinance.ui.composables.EmployeeSearchBar
 import com.example.ministryoffinance.ui.composables.card.CardScrollView
-import com.example.ministryoffinance.ui.composables.screen.TitleRow
+import com.example.ministryoffinance.ui.composables.topBar.MenuIcon
+import com.example.ministryoffinance.ui.composables.topBar.TitleRow
 import com.example.ministryoffinance.ui.composables.topBar.TopBar
 import com.example.ministryoffinance.ui.navigation.NavigationMenu
 import com.example.ministryoffinance.ui.navigation.Screen
@@ -72,9 +74,7 @@ fun HomeScreen(
                 .fillMaxSize()
         ) {
             TopBar(
-                title = { TitleRow() },
-                scope = scope,
-                drawerState = drawerState,
+                icon = { MenuIcon(scope = scope, drawerState = drawerState) }
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -86,15 +86,18 @@ fun HomeScreen(
                 }
             )
 
-            Column(modifier = Modifier.padding(horizontal = 20.dp)) {
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // Название выбранной категории
                 Text(
                     text = selectedCategory?.ruName ?: "Категория не выбрана",
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
                     fontWeight = Medium,
                     fontSize = 22.sp,
+                    textAlign = TextAlign.Center
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))

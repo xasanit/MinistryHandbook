@@ -1,11 +1,14 @@
-package com.example.ministryoffinance.ui.composables.screen
+package com.example.ministryoffinance.ui.composables.topBar
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,24 +26,26 @@ import com.example.ministryoffinance.ui.theme.MinistryOfFinanceTheme
 
 @Composable
 fun TitleRow() {
-    Row (
+    Row(
         modifier = Modifier
             .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
     ) {
+
         Image(
             painter = painterResource(R.drawable.gerb),
             contentDescription = "Herb of Kyrgyz Republic",
             modifier = Modifier
                 .clip(CircleShape)
+                .height(height = 72.dp)
+                .aspectRatio(1F)
         )
-        Spacer(modifier = Modifier
-            .width(10.dp))
         Text(
             text = "Министерство Финансов Кыргызской Республики",
             modifier = Modifier
-                .weight(1F)
-                .align(Alignment.CenterVertically),
+                .align(Alignment.CenterVertically)
+                .padding(start = 10.dp),
             fontSize = 18.sp,
             fontWeight = Bold,
             maxLines = 2

@@ -16,8 +16,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.ministryoffinance.domain.usecase.employeeUseCase.implementations.GetEmployeeByIdUseCaseImpl
 import com.example.ministryoffinance.domain.usecase.employeeUseCase.implementations.GetEmployeesUseCaseImpl
-import com.example.ministryoffinance.ui.composables.topBar.BaseTopBar
 import com.example.ministryoffinance.ui.composables.EmployeeDetails
+import com.example.ministryoffinance.ui.composables.topBar.BackIcon
+import com.example.ministryoffinance.ui.composables.topBar.TopBar
 import com.example.ministryoffinance.ui.values.mock.fakeRepository.FakeEmployeeRepositoryImpl
 import com.example.ministryoffinance.ui.viewmodel.EmployeeUiState
 import com.example.ministryoffinance.ui.viewmodel.EmployeeViewModel
@@ -36,7 +37,9 @@ fun DetailsScreen(
     val state by viewModel.employeeState.collectAsState()
 
     Column {
-        BaseTopBar(navController)
+        TopBar(
+            icon = { BackIcon(navController) },
+        )
         Box(
             modifier = Modifier
                 .padding(top = 15.dp)

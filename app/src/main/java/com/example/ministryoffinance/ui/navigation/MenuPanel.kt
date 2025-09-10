@@ -45,7 +45,8 @@ fun NavigationMenu(
             .fillMaxHeight()
             .fillMaxWidth(0.7f)
             .border(width = 2.dp, color = Primary),
-        drawerShape = RectangleShape
+        drawerShape = RectangleShape,
+        drawerContainerColor = OnPrimary,
     ) {
         Box(
             modifier = Modifier
@@ -74,7 +75,8 @@ fun NavigationMenu(
             }
         } else {
             LazyColumn(
-                modifier = Modifier.background(OnPrimary)
+                modifier = Modifier
+                    .background(OnPrimary)
             ) {
                 items(categoryList) { item ->
                     NavigationDrawerItem(
@@ -83,7 +85,7 @@ fun NavigationMenu(
                                 text = item.ruName,
                                 fontSize = 16.sp,
                                 fontWeight = Medium,
-                                color = OnPrimary
+                                color = Primary
                             )
                         },
                         selected = false,

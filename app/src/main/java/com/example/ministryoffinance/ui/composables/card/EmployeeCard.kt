@@ -152,6 +152,7 @@ fun EmployeeInfo(
             fontSize = 16.sp,
             color = Primary,
             fontWeight = Bold,
+            textAlign = TextAlign.Center,
         )
         Spacer(Modifier.height(5.dp))
         EmployeeInfoColumn(
