@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.ministryoffinance.ui.navigation.Navigation
-import com.example.ministryoffinance.ui.theme.MinistryOfFinanceTheme
+import com.example.ministryoffinance.ui.common.navigation.Navigation
+import com.example.ministryoffinance.ui.common.theme.MinistryOfFinanceTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

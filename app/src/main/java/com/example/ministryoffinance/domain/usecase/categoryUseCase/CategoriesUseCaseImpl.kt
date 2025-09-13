@@ -1,6 +1,6 @@
 package com.example.ministryoffinance.domain.usecase.categoryUseCase
 
-import com.example.ministryoffinance.data.repository.categoryRepository.CategoryRepository
+import com.example.ministryoffinance.domain.repository.CategoryRepository
 import com.example.ministryoffinance.domain.model.Category
 
 class CategoriesUseCaseImpl(

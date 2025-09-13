@@ -1,9 +1,7 @@
 package com.example.ministryoffinance
 
 import android.app.Application
-import com.example.ministryoffinance.appModules.appModule
-import com.example.ministryoffinance.appModules.fakeAppModule
-import com.example.ministryoffinance.appModules.networkModule
+import com.example.ministryoffinance.di.fakeAppModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
